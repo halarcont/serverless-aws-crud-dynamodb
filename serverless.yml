@@ -5,6 +5,12 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: us-east-2
+  iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - lambda:InvokeFunction
+          - lambda:InvokeAsync
+        Resource: "*"
 plugins:
   - serverless-offline
   - serverless-dynamodb
@@ -59,6 +65,19 @@ functions:
       - httpApi:
           path: /tasks/{id}
           method: delete
+
+  lambda_child:
+    handler: src/lambdaChild.child
+
+  lambda_parent:
+    handler: src/lambdaParent.parent
+    events:
+      - httpApi:
+          path: /parent
+          method: get
+
+    
+
 
 resources:
   Resources:
