@@ -1,0 +1,77 @@
+service: aws-lambda-crud-node
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-2
+plugins:
+  - serverless-offline
+  - serverless-dynamodb
+custom:
+  serverless-dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+
+functions:
+  api:
+    handler: src/hello.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+  createTask:
+    handler: src/addTask.addTask
+    events:
+      - httpApi:
+          path: /tasks
+          method: post
+
+  listTask:
+    handler: src/listTask.listTask
+    events:
+      - httpApi:
+          path: /tasks
+          method: get
+
+  getTask:
+    handler: src/getTask.getTask
+    events:
+      - httpApi:
+          path: /tasks/{id}
+          method: get
+
+  updateTask:
+    handler: src/updateTask.updateTask
+    events:
+      - httpApi:
+          path: /tasks/{id}
+          method: put
+
+  deleteTask:
+    handler: src/deleteTask.deleteTask
+    events:
+      - httpApi:
+          path: /tasks/{id}
+          method: delete
+
+resources:
+  Resources:
+    TaskTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: TaskTable
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

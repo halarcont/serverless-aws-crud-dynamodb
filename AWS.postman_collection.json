@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "7079ee3f-36c1-44c6-8ae4-9b1b346eb0ca",
+		"name": "AWS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20114351"
+	},
+	"item": [
+		{
+			"name": "addTask",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 1,\r\n    \"title\":\"recoger el cuarto\",\r\n    \"description\":\"organizar el reguero\",\r\n    \"createdAt\": \"today\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/tasks"
+			},
+			"response": []
+		},
+		{
+			"name": "listTask",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getTaskById",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "updateTask",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": "http://localhost:3000/tasks/"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteTask",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
