@@ -13,22 +13,32 @@ const deleteTask = async (event) =>{
         const dynamodb = new AWS.DynamoDB.DocumentClient();
         const { id } = event.pathParameters;
 
-        const result = await dynamodb.delete({
+        // Comprueba si la tarea existe antes de eliminarla
+        const getTaskResult = await dynamodb.get({
             TableName: 'TaskTable',
             Key:{
                 id,
             }
-        })
-            .promise();
+        }).promise();
 
-        // Lanza un error si la tarea no existe
-        if (!result.Attributes) {
+        if (!getTaskResult.Item) {
             throw new createError.NotFound(`Task with ID "${id}" not found`);
         }
 
+        // Si la tarea existe, procede a eliminarla
+        await dynamodb.delete({
+            TableName: 'TaskTable',
+            Key:{
+                id,
+            }
+        }).promise();
+
         return {
             status: 200,
-            body: "Task deleted"
+            body: JSON.stringify({
+                message: "Task deleted",
+                success: "Task deleted successfully"
+            })
         }
     } catch (error) {
         throw new createError.InternalServerError(error);
