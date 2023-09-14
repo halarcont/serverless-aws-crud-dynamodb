@@ -14,13 +14,13 @@ const getStatus = (defaultOptions, path, payload) => new Promise((resolve, rejec
 exports.joke = async (event) => {
     // TODO
     const defaultOptions = {
-        host: 'official-joke-api.appspot.com', //_hostname : example.com, passed from event as a parameter
+        host: 'official-joke-api.appspot.com', //_hostname 
         port: 443, // or 80 for http
         headers: {
          'Content-Type': 'application/json',
         }
     }
-    var respuesta = await getStatus(defaultOptions, '/random_joke', ''); //_pathname : /user/add, passed from event as a parameter
+    var respuesta = await getStatus(defaultOptions, '/random_joke', ''); //_pathname 
     // TODO implement
     const response = {
         statusCode: 200,
