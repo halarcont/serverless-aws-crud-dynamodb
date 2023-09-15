@@ -75,6 +75,13 @@ functions:
       - httpApi:
           path: /parent
           method: get
+          
+  externalAPI:
+    handler: src/externalAPI.joke
+    events:
+      - httpApi:
+          path: /joke
+          method: get
 
     
 
